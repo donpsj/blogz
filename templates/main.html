@@ -1,0 +1,23 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<h1> Blog Entries </h1>
+<form action="/blog" method='get'>
+    {% if blogs|length == 0 %}
+    <p>No entries yet</p>
+    {% else %}
+    <ul>
+         
+       {% for blog in blogs|sort(attribute ='id', reverse = true) %}
+        <li>
+            <a href="/viewentry?id={{blog.id}}"> <h2>{{blog.title}}</h2> </a>
+            <h5>{{blog.body}}</h5>
+            <input type="hidden" name="blog_id" value={{blog.id}} />
+        </li>
+        <hr>
+        {% endfor %}
+    </ul>
+   {% endif %}
+</form>
+{% endblock %}

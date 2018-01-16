@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <title>{{title}}</title>
+    <style>
+        .error {
+            color: red;
+        }
+    h1{
+        text-align:center;
+     }
+        textarea {
+            margin: 10px 0;
+            width: 300px;
+            height: 100px;
+        }
+    </style>
+
+    <p><a href="{{url_for('blog')}}"> Main Blog Page </a> | <a href="{{url_for('newpost')}}"> Add a New Post </a></p>
+</head>
+<body>
+    <br><br><hr>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    <ul>
+        {% for category, message in messages %}
+        <li class="{{category}}">{{message}}</li>
+        {% endfor %}
+    </ul>
+    {% endwith %}
+    
+    {% block content %}
+
+    {% endblock %}
+
+</body>
+</html>
