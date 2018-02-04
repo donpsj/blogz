@@ -1,23 +1,22 @@
-
 {% extends "base.html" %}
 {% block content %}
-
-<h1> Blog Entries </h1>
+<h1> Blog Posts </h1>
 <form action="/blog" method='get'>
     {% if blogs|length == 0 %}
     <p>No entries yet</p>
     {% else %}
-    <ul>
-         
-       {% for blog in blogs|sort(attribute ='id', reverse = true) %}
-        <li>
-            <a href="/viewentry?id={{blog.id}}"> <h2>{{blog.title}}</h2> </a>
-            <h5>{{blog.body}}</h5>
-            <input type="hidden" name="blog_id" value={{blog.id}} />
-        </li>
-        <hr>
+    {% for blog in blogs |sort(attribute ='id', reverse = true) %}
+        {% for user in users %}
+            {%if blog.owner_id==user.id %}
+                <p><h2 class="post-title"><a href="/viewentry?id={{blog.id}}">{{blog.title}} </a></h2>
+                <p class="post-body">{{blog.body}}</p>
+                <p class="post-author">
+                written by <a href="/view_userpost?id={{user.id}}">{{user.username}}</a>
+                <input type="hidden" name="blog_id" value={{blog.id}} />
+                </p>
+             {% endif %}
         {% endfor %}
-    </ul>
-   {% endif %}
+    {% endfor %}
+    {% endif %}
 </form>
 {% endblock %}

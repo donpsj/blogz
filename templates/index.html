@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Blog Users!</h1>
+<form action="/" method='get'>
+    {% if users|length == 0 %}
+    <p>No users yet</p>
+    {% else %}
+    <ul>
+        {% for user in users|sort(attribute ='username') %}
+        <li>
+            <a href="/view_userpost?id={{user.id}}">{{user.username}}</a>
+            <input type="hidden" name="user_id" value={{user.id}} />
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</form>
+{% endblock %}

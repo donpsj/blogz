@@ -1,33 +1,103 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>{{title}}</title>
-    <style>
+    <title>Blogz</title>
+    <style type="text/css">
+        body {
+            font-family: sans-serif;
+            width: 800px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
         .error {
             color: red;
         }
-    h1{
-        text-align:center;
-     }
+
+        label {
+            display: block;
+            font-size: 20px;
+        }
+
+        input[type=text],
+        input[type=password] {
+            width: 400px;
+            font-size: 20px;
+            padding: 2px;
+        }
+
         textarea {
-            margin: 10px 0;
-            width: 300px;
-            height: 100px;
+            width: 400px;
+            height: 200px;
+            font-size: 17px;
+            font-family: monospace;
+        }
+
+        input[type=submit] {
+            font-size: 24px;
+        }
+
+        hr {
+            margin: 20px auto;
+        }
+
+        .post + .post {
+            margin-top: 20px;
+        }
+
+        .post-title {
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .post-body {
+            margin: 0;
+            font-size: 17px;
+        }
+
+        .post-author {
+            font-style: italic;
+            font-size: 12px;
+        }
+
+        nav ul {
+            padding: 0;
+            display: inline-block;
+        }
+
+            nav ul li {
+                list-style: none;
+                display: inline-block;
+                margin-right: 15px;
+            }
+
+        nav #user-account {
+            float: right;
         }
     </style>
-
-    <p><a href="{{url_for('blog')}}"> Main Blog Page </a> | <a href="{{url_for('newpost')}}"> Add a New Post </a></p>
+   
 </head>
 <body>
-    <br><br><hr>
+    <nav>
+        <ul id="user-account">
+            <li><a href="/login">login</a></li>
+            <li><a href="/logout">logout</a></li>
+        </ul>
+        <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/blog">all posts</a></li>
+            <li><a href="/newpost">new post</a></li>
+        </ul>
+    </nav>
+    <hr>
     {% with messages = get_flashed_messages(with_categories=True) %}
-    <ul>
-        {% for category, message in messages %}
-        <li class="{{category}}">{{message}}</li>
-        {% endfor %}
-    </ul>
+        <ul>
+            {% for category, message in messages %}
+                <li class="{{category}}">{{message}}</li>
+            {% endfor %}
+        </ul>
     {% endwith %}
-    
+
     {% block content %}
 
     {% endblock %}
